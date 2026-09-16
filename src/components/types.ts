@@ -3,6 +3,7 @@ type Action =
     | "Item removed"
     | "Coupon used"
     | "Reset";
+
 export type Coupon = {
     name: string,
     subtraction: 0.05
