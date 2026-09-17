@@ -1,6 +1,5 @@
 import type { Item, Model, Message, TotalInput } from "./types";
 
-export function update(model: Model, message: Message): Model { return model; };
 
 export function addItem(items: Item[], item: Item) : Item[] { return [...items, item]; };
 export function removeItem(items: Item[], id: string) : Item[] { return items.filter(item => item.id !== id); };
@@ -56,3 +55,74 @@ export function calculateTotal(input: TotalInput) : number {
         * input.surchargeMultiplier
         * input.taxRate;
 }
+
+// test update()
+
+export function update(model: Model, message: Message): Model { 
+    
+    if (message.type === "addItem") {
+        
+        return {
+
+            ...model,
+            items: addItem(
+                model.items,
+                message.item
+            )
+
+        };
+
+    }
+
+    if (message.type === "removeItem") {
+        
+        return {
+
+            ...model,
+            items: removeItem(
+                model.items,
+                message.id
+            )
+
+        };
+
+    }
+
+    if (message.type === "applyCoupon") {
+
+        const { taxRate, usedCoupons } =
+
+            applyCoupon(
+
+                model.taxRate,
+                model.usedCoupons,
+                message.code
+
+            );
+
+        return {
+
+            ...model,
+            taxRate,
+            usedCoupons
+        
+        };
+
+    }
+
+    if (message.type === "reset") {
+
+        return {
+
+            items: [],
+            taxRate: 0.25,
+            usedCoupons: []
+
+        };
+
+    }
+
+    return model
+
+};
+
