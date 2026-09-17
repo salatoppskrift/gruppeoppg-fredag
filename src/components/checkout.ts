@@ -15,13 +15,32 @@ export function markProcessed(items: Item[]) : Item[] {
     }));
 }
 
+export function calculateTotal(input: TotalInput) : number {
+    return 10;
+}
+
+//testing applyCoupon()
+
 export function applyCoupon(
     taxRate: number,
     usedCoupons: string[],
     code: string
-) : number {
-    return taxRate;
-}
-export function calculateTotal(input: TotalInput) : number {
-    return 10;
+): {
+    taxRate: number;
+    usedCoupons: string[];
+} {
+
+    if (usedCoupons.includes(code)) {
+
+        return {
+            taxRate: taxRate,
+            usedCoupons: usedCoupons
+        };
+
+    }
+
+    return {
+        taxRate: taxRate - 0.05,
+        usedCoupons: [...usedCoupons, code]
+    };
 }
