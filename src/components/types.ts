@@ -8,6 +8,7 @@ export type Coupon = {
     name: string,
     subtraction: 0.05
 }
+
 export type Item = {
     id: string;
     name: string;

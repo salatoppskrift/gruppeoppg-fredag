@@ -15,9 +15,6 @@ export function markProcessed(items: Item[]) : Item[] {
     }));
 }
 
-export function calculateTotal(input: TotalInput) : number {
-    return 10;
-}
 
 //testing applyCoupon()
 
@@ -43,4 +40,19 @@ export function applyCoupon(
         taxRate: taxRate - 0.05,
         usedCoupons: [...usedCoupons, code]
     };
+}
+
+// testing calculateTotal()
+
+export function calculateTotal(input: TotalInput) : number {
+    const total = input.items.reduce(
+        (sum, item) =>
+            sum + item.price * item.qty,
+        0
+    );
+
+    return total
+        * input.discountMultiplier
+        * input.surchargeMultiplier
+        * input.taxRate;
 }
